@@ -21,7 +21,6 @@ registraduria/target/
 # El volcado de "-o json=" puede pesar cientos de MB por corrida.
 perf/results/*
 !perf/results/.gitkeep
-
 # Laboratorio de mediciones (perf/lab): se versionan scripts y data/, no lo crudo.
 perf/lab/results/
 perf/lab/pool/
