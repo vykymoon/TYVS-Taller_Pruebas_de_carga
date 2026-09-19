@@ -8,6 +8,7 @@ public class RegistryRepository implements RegistryRepositoryPort {
     private final String jdbcUrl;
     private final String username;
     private final String password;
+    private final com.zaxxer.hikari.HikariDataSource ds;
 
     public RegistryRepository(String jdbcUrl) {
         this(jdbcUrl, "", "");
@@ -17,10 +18,16 @@ public class RegistryRepository implements RegistryRepositoryPort {
         this.jdbcUrl = jdbcUrl;
         this.username = username;
         this.password = password;
+        com.zaxxer.hikari.HikariConfig cfg = new com.zaxxer.hikari.HikariConfig();
+        cfg.setJdbcUrl(jdbcUrl);
+        cfg.setUsername(username);
+        cfg.setPassword(password);
+        cfg.setMaximumPoolSize(20);
+        this.ds = new com.zaxxer.hikari.HikariDataSource(cfg);
     }
 
     private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(jdbcUrl, username, password);
+        return ds.getConnection();
     }
 
     @Override
