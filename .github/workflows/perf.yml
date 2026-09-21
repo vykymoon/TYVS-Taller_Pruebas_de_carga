@@ -49,6 +49,11 @@ jobs:
           echo "El servicio no arrancó a tiempo"; cat /tmp/app.log; exit 1
         working-directory: registraduria
 
+      - name: Preparar gpg
+        run: |
+          sudo mkdir -p /root/.gnupg
+          sudo chmod 700 /root/.gnupg
+
       - name: Instalar k6
         run: |
           sudo gpg --no-default-keyring \
